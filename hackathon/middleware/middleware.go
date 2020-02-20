@@ -5,10 +5,15 @@ import (
 	"fmt"
 	"net/http"
 	"strings"
+
 	ctx "github.com/gophish/gophish/context"
 
 	"github.com/halaalajlan/gophish/models"
 )
+
+var APIKeyEx = []string{
+	"/api/login",
+}
 
 // RequireAPIKey ensures that a valid API key is set as either the api_key GET
 // parameter, or a Bearer token.
@@ -21,7 +26,12 @@ func RequireAPIKey(handler http.Handler) http.Handler {
 			w.Header().Set("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept")
 			return
 		}
-
+		for _, prefix := range APIKeyEx {
+			if strings.HasPrefix(r.URL.Path, prefix) {
+				handler.ServeHTTP(w, r)
+				return
+			}
+		}
 		r.ParseForm()
 		ak := r.Form.Get("api_key")
 		// If we can't get the API key, we'll also check for the
