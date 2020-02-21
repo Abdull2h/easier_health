@@ -3,6 +3,7 @@ CREATE TABLE Patient(
     Fname    VARCHAR(10), 
     Lname   VARCHAR(10),
     Birthday   date,
+    typeOfBlood  VARCHAR(3),
     api_Key   int  UNIQUE, 
     gander    varchar(10),
     Phone_number int, 
@@ -11,15 +12,12 @@ CREATE TABLE Patient(
 
 CREATE table Medical_Record(
     ID_Med   number PRIMARY key, 
-    Have_X_Ray  VARCHAR(6), 
-    result_XRay  VARCHAR(100), 
-    Have_Analysis VARCHAR(6), 
-    ResutlOfAnalysis varchar(100),
-    Takeing_Medicen VARCHAR(6), 
-    whatIsMedicen VARCHAR(100),
-    TypeOFdisease varchar(100), 
-    Chronic_Disease VARCHAR(6), 
-    commends VARCHAR(500), 
+    diabetic VARCHAR(3),
+    High_Blood_Pressure VARCHAR(3),
+    cholestrol VARCHAR(3), 
+    heart_dieases VARCHAR(3),
+    asthma VARCHAR(3),
+    Allergic_disease VARCHAR(3),
     Id_Patent int REFERENCES Patient
 )
 
